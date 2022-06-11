@@ -1,5 +1,9 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@{
+  var actionContext = ViewContext.RouteData.Values["action"].ToString();
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
 
 <head>
   <meta charset="utf-8" />
@@ -11,44 +15,68 @@
 </head>
 
 <body>
-  <header>
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Moozy</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
-          Menu
-        </button>
+  @if (actionContext != "SignIn" && actionContext != "SignUp")
+  {
+    <header>
+      <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" asp-controller="Home" asp-action="Index">Moozy</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+            Menu
+          </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a href="#" class="nav-link active">Home</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">Explorar</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">Contato</a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">Cadastrar / Entrar</a>
-            </li>
-          </ul>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav flex-fill">
+              <li class="nav-item">
+                <a asp-controller="Home" asp-action="Index" class="nav-link @(actionContext == "Index" ? "active" : "")">
+                  Home
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link @(actionContext == "Explorar" ? "active" : "")">
+                  Explorar
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link @(actionContext == "Sobre" ? "active" : "")">
+                  Sobre
+                </a>
+              </li>
+            </ul>
+
+            @if (TempData["LoggedUser"] != null)
+            {
+              <div>
+                <a class="h4" asp-controller="User" asp-action="Profile">@TempData["LoggedUser"]</a>
+              </div>
+            }
+            else
+            {
+              <div>
+                <a asp-controller="User" asp-action="SignUp" class="btn btn-secondary">Cadastrar</a>
+                <a asp-controller="User" asp-action="SignIn" class="btn btn-outline-secondary">Entrar</a>
+              </div>
+            }
+
+          </div>
         </div>
-      </div>
-    </nav>
-  </header>
-  <main role="main" class="pb-3">
+      </nav>
+    </header>
+  }
+  <main role="main">
     @RenderBody()
   </main>
 
-  <footer class="border-top footer text-muted">
-    <div class="container">
-      <span>&copy; 2022 - Moozy - </span>
-      <a href="#">Home</a>
-      <a href="#">Sobre nós</a>
-    </div>
-  </footer>
+  @if (actionContext != "SignIn" && actionContext != "SignUp")
+  {
+    <footer class="border-top footer text-muted">
+      <div class="container">
+        <span>&copy; 2022 - Moozy - </span>
+        <a href="#">Home</a>
+        <a href="#">Sobre nós</a>
+      </div>
+    </footer>
+  }
   <script src="~/lib/jquery/dist/jquery.min.js"></script>
   <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="~/js/site.js" asp-append-version="true"></script>

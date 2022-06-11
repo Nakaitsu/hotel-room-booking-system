@@ -1,0 +1,41 @@
+@model SignUpViewModel
+@{
+  ViewData["Title"] = "SignUp";
+}
+
+<div class="text-danger" asp-validation-summary="All"></div>
+
+<div class="row pt-4">
+  <div class="col-8 offset-2">
+    <h1 class="h2 text-center">Venha fazer parte da rede Moozy</h1>
+    <p class="text-center form-text">As melhores reservas estão aqui!</p>
+  </div>
+
+  <div class="col-4 offset-4">
+    <form class="shadow pb-1 pt-3 px-5" asp-action="SignUp" method="POST">
+        <div class="mb-2">
+          <label asp-for="Username" class="form-label">Username</label>
+          <input asp-for="Username" class="form-control" placeholder="TheBestCustomer" autocomplete="off">
+        </div>
+
+        <div class="mb-2">
+          <label asp-for="Email" class="form-label">E-mail</label>
+          <input asp-for="Email" class="form-control" placeholder="emailexemplo@email.com" autocomplete="off">
+        </div>
+
+        <div class="mb-2">
+          <label asp-for="Password" class="form-label">Password</label>
+          <input asp-for="Password" class="form-control" type="password" placeholder="Mínimo de 8 dígitos" autocomplete="off">
+        </div>
+
+        <div class="mb-2">
+          <label asp-for="PasswordConfirm" class="form-label">Repeat your password</label>
+          <input asp-for="PasswordConfirm" class="form-control" type="password" placeholder="Mínimo de 8 dígitos" autocomplete="off">
+        </div>
+
+        <div class="text-center py-3">
+          <button class="btn btn-primary" type="submit">Criar Conta</button>
+        </div>
+    </form>
+  </div>
+</div>

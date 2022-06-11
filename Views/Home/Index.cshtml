@@ -1,4 +1,4 @@
-﻿@model int?
+﻿@model IEnumerable<Room>
 @{
   ViewData["Title"] = "Home Page";
 }
@@ -10,7 +10,8 @@
   <form class="row pt-4" action="" method="GET">
     <div class="form-group col-md-6">
       <label for="localizacao" class="form-label">Localidade</label>
-      <input class="form-control form-control-lg" name="localizacao" id="localizacao" type="text" placeholder="Para onde você vai?">
+      <input class="form-control form-control-lg" name="localizacao" id="localizacao" type="text"
+        placeholder="Para onde você vai?">
     </div>
 
     <div class="form-group col-4 col-md-1 mb-md-0">
@@ -20,7 +21,8 @@
 
     <div class="form-group col-4 col-md-1 mb-md-0">
       <label for="criancas" class="form-label">Crianças</label>
-      <input class="form-control form-control-lg" name="criancas" id="criancas" type="number" value="1" min="1" max="25">
+      <input class="form-control form-control-lg" name="criancas" id="criancas" type="number" value="1" min="0"
+        max="25">
     </div>
 
     <div class="form-group col-4 col-md-1 mb-3 mb-md-0">
@@ -34,32 +36,132 @@
   </form>
 </section>
 
-Nossos melhores quartos
+<section class="container-fluid pt-4">
+  <div class="mb-3 text-center">
+    <h1>Nossos melhores quartos</h1>
+    <p>Os quartos mais escolhidos pelos usuários</p>
+  </div>
 
-Localizações
+  <div class="container">
+    <div class="row">
+      @foreach (var r in Model)
+      {
+        <div class="col-sm-6 col-lg-4">
+          <div class="card mb-4">
+            <img src="https://dummyimage.com/300x240/000/fff" class="card-img-top" height="240" width="300">
+            <div class="card-body">
+              <h2 class="card-title">@r.Name</h2>
+              <div class="row mb-3">
+                <div class="d-flex justify-content-between flex-column flex-xl-row col-10 text-muted text-uppercase">
+                  <span>Beds: @r.Beds</span>
+                  <span>Adults: @r.Adults</span>
+                  <span>Children: @r.Children</span>
+                </div>
+              </div>
+              <p class="card-text">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo debitis quasi, tenetur
+                ratione inventore quia aut facere sunt corporis consequatur nobis enim optio sint, vitae dignissimos totam
+                iste nulla labore.
+              </p>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+              <div class="card-text">
+                <span class="text-success h2">$ @r.Daily</span>
+                <span class="h5">.90</span>
+                <span> / diária</span>
+              </div>
+              <a asp-action="Reserva" asp-route-id="@r.Id" class="btn btn-primary align-self-start">Escolher</a>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>
 
-Nossos serviços
+<section class="container-fluid pt-4">
+  <h1 class="text-center mb-3">Escolha por localização</h1>
+  <div class="row">
 
+    <div class="offset-sm-1 offset-lg-0 col-12 col-sm-10 col-lg-6">
+      <div class="d-flex flex-column flex-sm-row mb-3">
+        <div class="flex-shrink-0">
+          <img src="https://dummyimage.com/230x180/696969/ffffff" width="230" height="180">
+        </div>
 
-@* <div class="container-fluid">
-
-  <form action="">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        @if (@Model.HasValue)
-        {
-          <span class="input-group-text">@Model.Value</span>
-        }
-        else
-        {
-          <span class="input-group-text">Seu nome</span>
-        }
-
+        <div class="flex-shrink-1 ms-3">
+          <div class="media-body">
+            <h1 class="h4">Campos do jordão</h1>
+            <p>Campos do Jordão é um município brasileiro localizado no interior do estado de São Paulo mais precisamente na Serra da Mantiqueira.</p>
+            <a href="#" class="btn btn-primary">Ver ofertas</a>
+          </div>
+        </div>
       </div>
-
-      <input type="text" name="" id="" class="form-control" placeholder="Meu nome">
     </div>
 
-    <button class="btn btn-primary btn-lg">Reservar agora</button>
-  </form>
-</div> *@
+    <div class="offset-sm-1 offset-lg-0 col-12 col-sm-10 col-lg-6">
+      <div class="d-flex flex-column flex-sm-row mb-3">
+        <div class="flex-shrink-0">
+          <img src="https://dummyimage.com/230x180/696969/ffffff" width="230" height="180">
+        </div>
+
+        <div class="flex-shrink-1 ms-3">
+          <div class="media-body">
+            <h1 class="h4">Ouro Preto</h1>
+            <p>Campos do Jordão é um município brasileiro localizado no interior do estado de São Paulo mais precisamente na Serra da Mantiqueira.</p>
+            <a href="#" class="btn btn-primary">Ver ofertas</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="offset-sm-1 offset-lg-0 col-12 col-sm-10 col-lg-6">
+      <div class="d-flex flex-column flex-sm-row mb-3">
+        <div class="flex-shrink-0">
+          <img src="https://dummyimage.com/230x180/696969/ffffff" width="230" height="180">
+        </div>
+
+        <div class="flex-shrink-1 ms-3">
+          <div class="media-body">
+            <h1 class="h4">Maceió</h1>
+            <p>Campos do Jordão é um município brasileiro localizado no interior do estado de São Paulo mais precisamente na Serra da Mantiqueira.</p>
+            <a href="#" class="btn btn-primary">Ver ofertas</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="offset-sm-1 offset-lg-0 col-12 col-sm-10 col-lg-6">
+      <div class="d-flex flex-column flex-sm-row mb-3">
+        <div class="flex-shrink-0">
+          <img src="https://dummyimage.com/230x180/696969/ffffff" width="230" height="180">
+        </div>
+
+        <div class="flex-shrink-1 ms-3">
+          <div class="media-body">
+            <h1 class="h4">Curitiba</h1>
+            <p>Campos do Jordão é um município brasileiro localizado no interior do estado de São Paulo mais precisamente na Serra da Mantiqueira.</p>
+            <a href="#" class="btn btn-primary">Ver ofertas</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="offset-sm-1 offset-lg-0 col-12 col-sm-10 col-lg-6">
+      <div class="d-flex flex-column flex-sm-row mb-3">
+        <div class="flex-shrink-0">
+          <img src="https://dummyimage.com/230x180/696969/ffffff" width="230" height="180">
+        </div>
+
+        <div class="flex-shrink-1 ms-3">
+          <div class="media-body">
+            <h1 class="h4">Salvador</h1>
+            <p>Campos do Jordão é um município brasileiro localizado no interior do estado de São Paulo mais precisamente na Serra da Mantiqueira.</p>
+            <a href="#" class="btn btn-primary">Ver ofertas</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
