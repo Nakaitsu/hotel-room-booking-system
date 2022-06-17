@@ -1,21 +1,42 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Prototype.Models;
+using Prototype.Models.ViewModels;
 
 namespace Prototype.Controllers;
 
 public class HomeController : Controller
 {
-  public IActionResult Index()
+  private IHotelRepository repository;
+
+  public HomeController(IHotelRepository repo)
   {
-    return View(Room.GetRooms());
+    repository = repo;
   }
 
-  public IActionResult Reserva(int? id)
+  public ViewResult Index()
   {
-    if (id.HasValue)
-      return View(id);
-    else
-      return RedirectToAction("Index");
+    return View(repository.Rooms);
+  }
+
+  //Não funcionando ainda
+  public ViewResult RoomsMenu(string? destiny, int? adults, int? children)
+  {
+    return View(new IndexViewModel {
+      Rooms = repository.Rooms
+      .Where(r => r.Adults >= adults
+        && (destiny == null || r.Localization.Contains(destiny))
+        && r.Children >= children)
+      .OrderBy(r => r.Adults)
+    });
+  }
+
+  public IActionResult Booking(int? id)
+  {
+    if(id.HasValue)
+      return View(repository.Rooms
+        .Single(room => room.Id == id));
+    
+    return RedirectToAction("Index");
   }
 }

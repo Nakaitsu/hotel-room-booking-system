@@ -1,11 +1,11 @@
+using System.Linq;
+
 namespace Prototype.Models
 {
   public static class UserRepository
   {
     private static List<User> users = new List<User>();
-
-    public static IEnumerable<User> Users => users;
-
+    public static IQueryable<User> Users => users.AsQueryable<User>();
     public static bool IsValid(User user)
     {
       return !users.Exists(u => u.Email == user.Email 

@@ -1,0 +1,156 @@
+@model Room
+@{
+  ViewData["Title"] = "Fazer reserva - " + @Model.Name;
+}
+
+<div class="container pt-4">
+  <h1 class="mb-4">@Model.Name</h1>
+
+  <div class="row mb-4">
+    <div class="col-12 col-md-7">
+      <div class="d-flex flex-column">
+        <img class="img-fluid mb-2" src="https://dummyimage.com/500x340/000/fff" alt="">
+        <div class="d-flex justify-content-center">
+          <img class="px-2" src="https://dummyimage.com/150x120/000/fff">
+          <img class="px-2" src="https://dummyimage.com/150x120/000/fff">
+          <img class="px-2" src="https://dummyimage.com/150x120/000/fff">
+          <img class="px-2" src="https://dummyimage.com/150x120/000/fff">
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-5">
+      <h2>Detalhes</h2>
+      <p>
+        <strong>Tamanho do quarto: </strong>@(Model.SquareFeet)m²
+      </p>
+      <p>
+        <strong>Camas: </strong>@Model.Beds
+      </p>
+      <p>
+        <strong>Adultos: </strong>@Model.Adults
+      </p>
+      <p>
+        <strong>Crianças: </strong>@Model.Children
+      </p>
+      <p>
+        <strong>Descrição</strong>
+      </p>
+      <p>@Model.Description</p>
+    </div>
+  </div>
+
+  <form class="rounded-top">
+    <section class="bg-light p-4 mb-3">
+      <h1 class="h3 pb-1 border-bottom">Insira seus dados</h1>
+      <div class="row px-3 my-4">
+
+        <div class="col-6 mb-3">
+          <label class="form-label fw-bold">Nome</label>
+          <input class="form-control">
+        </div>
+
+        <div class="col-6 mb-3">
+          <label class="form-label fw-bold">Sobrenome</label>
+          <input class="form-control">
+        </div>
+
+        <div class="col-8 mb-3">
+          <label class="form-label fw-bold">E-mail</label>
+          <input class="form-control" type="email" placeholder="emailexemplo@email.com">
+        </div>
+
+        <div class="col-12">
+          <p class="fw-bold">Viajem a trabalho?</p>
+          <div class="form-check form-check-inline">
+            <input type="radio" name="isWorking" id="isWorkingTrue" class="form-check-input">
+            <label for="isWorkingTrue" class="form-check-label">Sim</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input type="radio" name="isWorking" id="isWorkingFalse" class="form-check-input">
+            <label for="isWorkingFalse" class="form-check-label">Não</label>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="bg-light p-4 mb-3">
+      <h1 class="h3 pb-1 border-bottom">Sobre a reserva</h1>
+      <div class="row px-3 my-4">
+
+        <div class="col-4 mb-3">
+          <label class="form-label fw-bold">Número de noites</label>
+          <input class="form-control">
+        </div>
+
+        <div class="col-4 mb-3">
+          <label class="form-label fw-bold">Hospédes</label>
+          <input class="form-control">
+        </div>
+
+        <div class="col-12 mb-3">
+          <div class="form-check">
+            <input class="form-check-input" id="withCar" type="checkbox">
+            <label class="form-check-label" for="withCar">Interesse em alugar um carro</label>
+          </div>
+        </div>
+
+        <div class="col-7 mb-3">
+          <label class="form-label fw-bold">Nome completo do hóspede</label>
+          <input class="form-control" placeholder="Responsável que irá responder pela reserva">
+        </div>
+
+        <div class="col-12 mb-3">
+          <label class="form-label fw-bold">Notas adicionais</label>
+          <textarea class="form-control"></textarea>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="bg-light p-4 mb-3">
+      <h1 class="h3 pb-1 border-bottom">Endereço</h1>
+      <div class="row px-3 my-4">
+
+        <div class="col-6 mb-3">
+          <label class="form-label fw-bold">Endereço</label>
+          <input class="form-control">
+        </div>
+        <div class="col-6 mb-3">
+          <label class="form-label fw-bold">Cidade</label>
+          <input class="form-select">
+        </div>
+        <div class="col-2 mb-3">
+          <label class="form-label fw-bold">Número</label>
+          <input class="form-control">
+        </div>
+        <div class="col-2 mb-3">
+          <label class="form-label fw-bold">Código Postal</label>
+          <input class="form-control">
+        </div>
+        <div class="col-4 mb-3">
+          <label class="form-label fw-bold">Páis/região</label>
+          <input class="form-select">
+        </div>
+        <div class="col-4 mb-3">
+          <label class="form-label fw-bold">Número de telefone</label>
+          <input class="form-control">
+        </div>
+
+        <div class="col-12 mb-3">
+          <div class="form-check">
+            <input class="form-check-input" id="allowNotifications" type="checkbox">
+            <label class="form-check-label" for="allowNotifications">
+              Sim, desejo receber notificações sobre promoções e outras ofertas
+            </label>
+          </div>
+        </div>
+          
+      </div>
+    </section>
+
+    <button class="btn btn-lg btn-primary" type="submit">
+      Concluir a reserva
+    </button>
+  </form>
+</div>

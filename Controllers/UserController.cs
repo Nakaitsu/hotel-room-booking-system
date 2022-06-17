@@ -20,7 +20,7 @@ namespace Prototype.Controllers
         public IActionResult SignUp(SignUpViewModel userForm)
         {
           if(ModelState.IsValid) 
-          {
+          { 
             User newUser = new User {
               Username = userForm.Username,
               Email = userForm.Email,

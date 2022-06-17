@@ -7,27 +7,27 @@
   <h1>Bem-vindo a Moozy</h1>
   <p>O lugar perfeito para reservar um quarto</p>
 
-  <form class="row pt-4" action="" method="GET">
+  <form class="row pt-4" asp-action="Booking" method="GET">
     <div class="form-group col-md-6">
-      <label for="localizacao" class="form-label">Localidade</label>
-      <input class="form-control form-control-lg" name="localizacao" id="localizacao" type="text"
+      <label for="destiny" class="form-label">Destino</label>
+      <input class="form-control form-control-lg" name="destiny" id="destiny" type="text"
         placeholder="Para onde você vai?">
     </div>
 
     <div class="form-group col-4 col-md-1 mb-md-0">
-      <label for="adultos" class="form-label">Adultos</label>
-      <input class="form-control form-control-lg" name="adultos" id="adultos" type="number" value="1" min="1" max="25">
+      <label for="adults" class="form-label">Adultos</label>
+      <input class="form-control form-control-lg" name="adults" id="adults" type="number" value="1" min="1" max="25">
     </div>
 
     <div class="form-group col-4 col-md-1 mb-md-0">
-      <label for="criancas" class="form-label">Crianças</label>
-      <input class="form-control form-control-lg" name="criancas" id="criancas" type="number" value="1" min="0"
+      <label for="childen" class="form-label">Crianças</label>
+      <input class="form-control form-control-lg" name="children" id="children" type="number" value="1" min="0"
         max="25">
     </div>
 
     <div class="form-group col-4 col-md-1 mb-3 mb-md-0">
-      <label for="quartos" class="form-label">Quartos</label>
-      <input class="form-control form-control-lg" name="quartos" id="quartos" type="number" value="1" min="1" max="15">
+      <label for="rooms" class="form-label text-danger">Quartos</label>
+      <input class="form-control form-control-lg" name="rooms" id="rooms" type="number" value="1" min="1" max="15" disabled>
     </div>
 
     <div class="form-group col-md-3 row">
@@ -44,124 +44,68 @@
 
   <div class="container">
     <div class="row">
-      @foreach (var r in Model)
+      @if(Model.Count<Room>() != 0)
       {
-        <div class="col-sm-6 col-lg-4">
-          <div class="card mb-4">
-            <img src="https://dummyimage.com/300x240/000/fff" class="card-img-top" height="240" width="300">
-            <div class="card-body">
-              <h2 class="card-title">@r.Name</h2>
-              <div class="row mb-3">
-                <div class="d-flex justify-content-between flex-column flex-xl-row col-10 text-muted text-uppercase">
-                  <span>Beds: @r.Beds</span>
-                  <span>Adults: @r.Adults</span>
-                  <span>Children: @r.Children</span>
+        @foreach (var r in Model)
+        {
+          <div class="col-sm-6 col-lg-4">
+            <div class="card mb-4 p-2">
+              <img src="https://dummyimage.com/300x240/000/fff" class="card-img-top" height="240" width="300">
+              <div class="card-body">
+                <h2 class="card-title">@r.Name</h2>
+                <div class="row mb-3">
+                  <div class="d-flex justify-content-between flex-column flex-xl-row col-10 text-muted text-uppercase">
+                    <span>Beds: @r.Beds</span>
+                    <span>Adults: @r.Adults</span>
+                    <span>Children: @r.Children</span>
+                  </div>
+                </div>
+                <p class="card-text">
+                  @(r?.Description ?? @"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo debitis quasi, tenetur
+                  ratione inventore quia aut facere sunt corporis consequatur nobis enim optio sint, vitae dignissimos totam
+                  iste nulla labore.")
+                </p>  
+                <div class="d-flex justify-content-between">
+                  <div class="card-text">
+                    <span class="text-success h2">$ @r.Daily</span>
+                    <span> / diária</span>
+                  </div>
+                  <a asp-action="Booking" asp-route-id="@r.Id" class="btn btn-primary align-self-start">Escolher</a>
                 </div>
               </div>
-              <p class="card-text">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo debitis quasi, tenetur
-                ratione inventore quia aut facere sunt corporis consequatur nobis enim optio sint, vitae dignissimos totam
-                iste nulla labore.
-              </p>
-            </div>
-            <div class="card-footer d-flex justify-content-between">
-              <div class="card-text">
-                <span class="text-success h2">$ @r.Daily</span>
-                <span class="h5">.90</span>
-                <span> / diária</span>
-              </div>
-              <a asp-action="Reserva" asp-route-id="@r.Id" class="btn btn-primary align-self-start">Escolher</a>
             </div>
           </div>
-        </div>
+        }
+      }
+      else
+      {
+        <span>Nenhum quarto disponível no mommento</span>
       }
     </div>
   </div>
 </section>
 
-<section class="container-fluid pt-4">
-  <h1 class="text-center mb-3">Escolha por localização</h1>
-  <div class="row">
-
-    <div class="offset-sm-1 offset-lg-0 col-12 col-sm-10 col-lg-6">
-      <div class="d-flex flex-column flex-sm-row mb-3">
-        <div class="flex-shrink-0">
-          <img src="https://dummyimage.com/230x180/696969/ffffff" width="230" height="180">
-        </div>
-
-        <div class="flex-shrink-1 ms-3">
-          <div class="media-body">
-            <h1 class="h4">Campos do jordão</h1>
-            <p>Campos do Jordão é um município brasileiro localizado no interior do estado de São Paulo mais precisamente na Serra da Mantiqueira.</p>
-            <a href="#" class="btn btn-primary">Ver ofertas</a>
-          </div>
-        </div>
+<section class="pt-4 bg-dark">
+  <div class="container pt-3 pb-2">
+    <div class="row">
+      <div class="col-12 col-md-6 text-white px-3">
+        <h1>Nossa localização</h1>
+        <h2 class="mb-3 text-success">Campos do Jordão</h2>
+        <p class="lh-lg pt-3">
+          A arquitetura de inspiração alemã dá um toque alpino à cidade, com florestas de 
+          pinheiros que oferecem uma refrescante alternativa ao calor das terras baixas. 
+          Com o horizonte repleto de picos verde-esmeralda, Campos do Jordão é um excelente 
+          destino nas montanhas localizado nos trópicos.
+        </p>
       </div>
-    </div>
 
-    <div class="offset-sm-1 offset-lg-0 col-12 col-sm-10 col-lg-6">
-      <div class="d-flex flex-column flex-sm-row mb-3">
-        <div class="flex-shrink-0">
-          <img src="https://dummyimage.com/230x180/696969/ffffff" width="230" height="180">
-        </div>
-
-        <div class="flex-shrink-1 ms-3">
-          <div class="media-body">
-            <h1 class="h4">Ouro Preto</h1>
-            <p>Campos do Jordão é um município brasileiro localizado no interior do estado de São Paulo mais precisamente na Serra da Mantiqueira.</p>
-            <a href="#" class="btn btn-primary">Ver ofertas</a>
-          </div>
-        </div>
+      <div class="col-12 col-md-6 px-3">
+        <img class="img-fluid"
+          src="https://conteudo.imguol.com.br/c/entretenimento/4d/2021/08/09/campos-do-jordao-1628534716035_v2_4x3.jpg"
+          alt="Campos do Jordão">
       </div>
+
     </div>
-
-    <div class="offset-sm-1 offset-lg-0 col-12 col-sm-10 col-lg-6">
-      <div class="d-flex flex-column flex-sm-row mb-3">
-        <div class="flex-shrink-0">
-          <img src="https://dummyimage.com/230x180/696969/ffffff" width="230" height="180">
-        </div>
-
-        <div class="flex-shrink-1 ms-3">
-          <div class="media-body">
-            <h1 class="h4">Maceió</h1>
-            <p>Campos do Jordão é um município brasileiro localizado no interior do estado de São Paulo mais precisamente na Serra da Mantiqueira.</p>
-            <a href="#" class="btn btn-primary">Ver ofertas</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="offset-sm-1 offset-lg-0 col-12 col-sm-10 col-lg-6">
-      <div class="d-flex flex-column flex-sm-row mb-3">
-        <div class="flex-shrink-0">
-          <img src="https://dummyimage.com/230x180/696969/ffffff" width="230" height="180">
-        </div>
-
-        <div class="flex-shrink-1 ms-3">
-          <div class="media-body">
-            <h1 class="h4">Curitiba</h1>
-            <p>Campos do Jordão é um município brasileiro localizado no interior do estado de São Paulo mais precisamente na Serra da Mantiqueira.</p>
-            <a href="#" class="btn btn-primary">Ver ofertas</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="offset-sm-1 offset-lg-0 col-12 col-sm-10 col-lg-6">
-      <div class="d-flex flex-column flex-sm-row mb-3">
-        <div class="flex-shrink-0">
-          <img src="https://dummyimage.com/230x180/696969/ffffff" width="230" height="180">
-        </div>
-
-        <div class="flex-shrink-1 ms-3">
-          <div class="media-body">
-            <h1 class="h4">Salvador</h1>
-            <p>Campos do Jordão é um município brasileiro localizado no interior do estado de São Paulo mais precisamente na Serra da Mantiqueira.</p>
-            <a href="#" class="btn btn-primary">Ver ofertas</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
+
 </section>

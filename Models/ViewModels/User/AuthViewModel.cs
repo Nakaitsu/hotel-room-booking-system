@@ -23,9 +23,4 @@ namespace Prototype.Models
       [Required]
       public string Password { get; set; }
     }
-
-    public class ProfileViewModel
-    {
-      // nao implementado
-    }
 }

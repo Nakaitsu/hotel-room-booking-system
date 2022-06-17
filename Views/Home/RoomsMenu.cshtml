@@ -1,0 +1,10 @@
+@model IndexViewModel
+
+<h1>Número de resultados: @Model.Rooms.Count()</h1>
+
+@foreach (var room in Model.Rooms)
+{
+  <div class="p-3 bg-secondary">
+    <h2>@room.Name</h2>
+  </div>
+}
